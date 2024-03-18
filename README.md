@@ -5,8 +5,8 @@ It uses the requests library to send HTTP GET requests to  the  Wikimedia specie
 First, clone this repo with and cd into it:
 
 ``` 
-git clone
-cd     
+git clone git@github.com:sans-dev/wiki-genus-fetcher.git
+cd wiki-genus-fetcher/
 ```
 Best practice is to create a conda or python environment.
 After activating it run:
