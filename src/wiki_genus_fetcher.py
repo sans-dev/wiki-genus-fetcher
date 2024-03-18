@@ -11,12 +11,20 @@ BASE_URL = 'https://species.wikimedia.org/w/rest.php/v1/page/'
 HEADERS = {}
 
 def get_taxon_name(substring, taxon_level):
-    if taxon_level in substring:
-        taxon_name = substring.split("|")[-1].strip()[:-2]
-        taxon_name = taxon_name.replace("}", "")
-        taxon_name = taxon_name.replace("{", "")
-        return taxon_name
-    else: return None
+    """
+    Extracts the taxon name from a given substring.
+
+    Parameters:
+    substring (str): The string from which the taxon name is to be extracted.
+    taxon_level (str): The taxon level to be checked in the substring.
+
+    Returns:
+    str|None: The taxon name if found, otherwise None.
+    """
+    if taxon_level not in substring:
+        return None
+    taxon_name = substring.split("|")[-1].strip()[:-2].replace("}", "").replace("{", "")
+    return taxon_name
 
 def get_species_count(taxon_name, pbar, species_count={}):
     """ This function fetches and counts the number of species under a given taxon from a web resource.
