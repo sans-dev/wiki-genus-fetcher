@@ -2,7 +2,7 @@
 This Python program fetches the number of species for all genera within a start classis (e.g. Insecta). 
 It uses the requests library to send HTTP GET requests to  the  Wikimedia species API and parses the responses using the json library.
 ## Installtion
-First, clone this repo with and cd into it:
+First, clone this repo and cd into it:
 
 ``` 
 git clone git@github.com:sans-dev/wiki-genus-fetcher.git

@@ -44,7 +44,6 @@ def get_species_count(taxon_name, pbar, species_count={}):
     If no keys are found in the 'source' field, the function returns an empty dictiotaxon
     Note: This function is recursive, meaning it calls itself when it finds a key in the 'source' field that doesn't match the taxon_name. 
     The recursion stops when a key matching the taxon_name is found or when all lines in the 'source' field have been checked. """
-    
     url = BASE_URL + taxon_name
     pbar.set_description(f"fetching results for {taxon_name}...")
     response = requests.get(url, headers=HEADERS)
@@ -121,7 +120,7 @@ def main(args):
     pbar = tqdm(taxon_names)
     for order in pbar:
         print(f"processing {order}...")
-        species_count[order] = get_species_count(order, pbar)
+        species_count[order] = get_species_count(order, pbar, species_count={})
 
     with open('species_count.json', 'w') as f:
         json.dump(species_count, f, indent=4)
