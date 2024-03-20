@@ -4,7 +4,10 @@ import pandas as pd
 from tqdm import tqdm
 import argparse
 from configparser import ConfigParser
+from pygbif import species as spec
+
 import sys
+
 sys.setrecursionlimit(10000)
 
 BASE_URL = 'https://species.wikimedia.org/w/rest.php/v1/page/'
