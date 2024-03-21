@@ -35,8 +35,7 @@ for order, genus_data in pbar:
         continents = list(filter(lambda continent : continent is not None, continents))
         countries = list(filter(lambda country : country is not None, countries))
 
-        order = gbif_data.get('order')
-        family = gbif_data.get('family')
+        family = gbif_data.get('family', 'NA')
 
         out_json[genus] = {
             'order' : order,
