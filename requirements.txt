@@ -1,3 +1,5 @@
 tqdm
 pandas
 requests
+pygbif
+configparser

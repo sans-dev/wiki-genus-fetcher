@@ -27,7 +27,12 @@ for order, genus_data in data.items():
             continue
         
         continents = []
-        for res in geo_location['results']
+        countries = []
+        longitudes =[]
+        lattitudes = []
+        
+        for res in geo_location['results']:
+            pass
 
         
 

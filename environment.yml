@@ -1,0 +1,11 @@
+
+name: wiki-scraping
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pandas
+  - pip
+  - pip:
+    - pygbif
