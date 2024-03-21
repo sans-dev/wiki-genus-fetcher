@@ -16,7 +16,7 @@ pbar = tqdm(data.items(),total=len(data.values()))
 for order, genus_data in pbar:
     pbar.set_description(f'Processing genera for order {order}')
     genus_pbar = tqdm(genus_data.items(), total=len(genus_data.values()))
-    for genus, species_count in genus_data.items():
+    for genus, species_count in genus_pbar:
         genus_pbar.set_description(f'fetching geo information for genus {genus}')
         try:
             gbif_data = spec.name_backbone(name=genus, rank='genus')
