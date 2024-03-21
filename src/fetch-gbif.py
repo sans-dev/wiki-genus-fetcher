@@ -2,6 +2,7 @@ from pygbif import species as spec
 from pygbif import occurrences as oc
 import json
 import pandas as pd
+from tqdm import tqdm
 
 # load data as dict from json file
 data_path = 'data/species_count.json'
@@ -11,10 +12,12 @@ with open(data_path,'r') as f:
 out_json = {}
 columns = ['order', 'family', 'genus', 'continent', 'n-genus-species']
 out_csv = []
-for order, genus_data in data.items():
-    print(order)
+pbar = tqdm(data.items(),total=len(data.values()))
+for order, genus_data in pbar:
+    pbar.set_description(f'Processing genera for order {order}')
+    genus_pbar = tqdm(genus_data.items(), total=len(genus_data.values()))
     for genus, species_count in genus_data.items():
-        print(f"    {genus}")
+        genus_pbar.set_description(f'fetching geo information for genus {genus}')
         try:
             gbif_data = spec.name_backbone(name=genus, rank='genus')
         except Exception as e:
