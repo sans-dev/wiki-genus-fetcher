@@ -134,12 +134,14 @@ def main(args):
     pbar = tqdm(taxon_names)
     for order in pbar:
         print(f"processing {order}...")
-        species_count[order] = get_species_count(order, pbar, species_count={})
+        sc = get_species_count(order, pbar, species_count={})
+        if sc is not None:
+            species_count[order] = sc
 
     out_path = f'data/{get_iso_date()}_{args.out}'
     with open(f'{out_path}.json', 'w') as f:
         json.dump(species_count, f, indent=4)
-
+    
     # convert dictionary to list of tuples
     data = [(order, genus, count) for order in species_count for genus, count in species_count[order].items()]
 
