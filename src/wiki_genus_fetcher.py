@@ -16,7 +16,7 @@ HEADERS = {}
 
 def get_iso_date():
     now = dt.now()
-    now = dt.strftime("%Y-%m-%dT%H-%M")
+    now = now.strftime("%Y-%m-%dT%H-%M")
     return now
 
 def get_taxon_name(substring, taxon_level):
