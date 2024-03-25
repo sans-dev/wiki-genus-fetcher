@@ -116,7 +116,12 @@ def main(args):
     url = BASE_URL + args.start_taxon
     try:
         response = requests.get(url, headers=HEADERS)
-        print(response)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        if err.response.status_code == '404':
+            raise err
+
+
         init_page = json.loads(response.text)
         source_str = init_page['source'].splitlines()
     except:
