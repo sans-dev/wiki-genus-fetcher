@@ -114,10 +114,13 @@ def main(args):
     }
 
     url = BASE_URL + args.start_taxon
-
-    response = requests.get(url, headers=HEADERS)
-    init_page = json.loads(response.text)
-    source_str = init_page['source'].splitlines()
+    try:
+        response = requests.get(url, headers=HEADERS)
+        print(response)
+        init_page = json.loads(response.text)
+        source_str = init_page['source'].splitlines()
+    except:
+        raise EOFError
 
     taxon_names = []
     for substring in source_str:
