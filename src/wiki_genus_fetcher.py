@@ -5,13 +5,19 @@ from tqdm import tqdm
 import argparse
 from configparser import ConfigParser
 from pygbif import species as spec
-
+from datetime import date
 import sys
-
+from datetime import datetime as dt
 sys.setrecursionlimit(10000)
 
 BASE_URL = 'https://species.wikimedia.org/w/rest.php/v1/page/'
 HEADERS = {}
+
+
+def get_iso_date():
+    now = dt.now()
+    now = dt.strftime("%Y-%m-%dT%H-%M")
+    return now
 
 def get_taxon_name(substring, taxon_level):
     """
@@ -125,7 +131,8 @@ def main(args):
         print(f"processing {order}...")
         species_count[order] = get_species_count(order, pbar, species_count={})
 
-    with open('species_count.json', 'w') as f:
+    out_path = f'data/{get_iso_date()}_{args.out}'
+    with open(f'{out_path}.json', 'w') as f:
         json.dump(species_count, f, indent=4)
 
     # convert dictionary to list of tuples
@@ -133,7 +140,7 @@ def main(args):
 
     # create dataframe
     species_df = pd.DataFrame(data, columns=['Order', 'Genus', 'species_count'])
-    species_df.to_csv('species_count.csv')
+    species_df.to_csv(f'{out_path}.csv')
 
 
 if __name__ == "__main__":
@@ -141,5 +148,6 @@ if __name__ == "__main__":
     parser.add_argument("--config", type=str, help="Path of the config file containing the user credentials for wikimedia.")
     parser.add_argument("--section", type=str, default="WIKI", help="Section of the configuration. Default is 'WIKI'.")
     parser.add_argument("--start-taxon", type=str, help="Initial Taxon from which species numbers will be fetched for each genus.")
+    parser.add_argument('--out', default='speecies_count', type=str)
     args = parser.parse_args()
     main(args)
